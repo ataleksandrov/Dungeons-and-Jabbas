@@ -31,6 +31,12 @@ public class GameEngine {
 		return map;
 	}
 	
+	public void setNewMap(Position current){
+		setCharAtPosition(hero.getPosition(),'.');
+		setCharAtPosition(current, 'H');
+		hero.setPosition(current);
+	}
+	
 	public String makeMove(int command){
 		String message="";
 		Position current = new Position(hero.getPosition().getX(),hero.getPosition().getY());
@@ -54,9 +60,7 @@ public class GameEngine {
 		switch (getCharAtPosition(current)) {
 		case '.':
 			message = "You moved successfully to the next position.";
-			setCharAtPosition(hero.getPosition(),'.');
-			setCharAtPosition(current, 'H');
-			hero.setPosition(current);
+			setNewMap(current);
 			break;
 		
 		case'#':
@@ -71,9 +75,7 @@ public class GameEngine {
 					break;
 				}
 			}
-			setCharAtPosition(hero.getPosition(),'.');
-			setCharAtPosition(current, 'H');
-			hero.setPosition(current);
+			setNewMap(current);
 			break;
 			
 		case'E':
@@ -85,9 +87,7 @@ public class GameEngine {
 				}
 			}
 			if(hero.isAlive()){
-				setCharAtPosition(hero.getPosition(),'.');
-				setCharAtPosition(current, 'H');
-				hero.setPosition(current);
+				setNewMap(current);
 			}
 			break;
 			
