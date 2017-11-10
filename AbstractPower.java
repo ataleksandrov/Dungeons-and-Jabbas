@@ -2,8 +2,17 @@ package bg.uni.sofia.fmi.mjt.dungeon.treasure;
 
 public abstract class AbstractPower implements Treasure,Comparable<AbstractPower>{
 	
-	public abstract String getName();
-	public abstract int getDamage();
+	protected String name;
+	protected int damage;
+	
+	public String getName(){
+		return name;
+	}
+	
+	public int getDamage(){
+		return damage;
+	}
+	
 	public int compareTo(AbstractPower o){
 		if(this.getDamage() > o.getDamage()){
 			return 1;

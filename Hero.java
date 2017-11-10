@@ -1,6 +1,7 @@
 package bg.uni.sofia.fmi.mjt.dungeon.actor;
 
 import bg.uni.sofia.fmi.mjt.dungeon.treasure.Spell;
+import bg.uni.sofia.fmi.mjt.dungeon.treasure.Treasure;
 import bg.uni.sofia.fmi.mjt.dungeon.treasure.Weapon;
 
 public class Hero implements Character{
@@ -131,7 +132,8 @@ public class Hero implements Character{
 		this.position = position;
 	}
 
-	public String combatMessage(Enemy enemy){
+	@Override
+	public String fightEnemyMessage(Enemy enemy){
 		String message;
 		int turn =1;
 		while(this.isAlive() && enemy.isAlive()){
@@ -150,6 +152,11 @@ public class Hero implements Character{
 			message = "Hero is dead! Game over!";
 		}
 		return message;
+	}
+
+	@Override
+	public String collectTreasure(Treasure treasure) {
+		return treasure.collect(this);
 	}
 	
 }

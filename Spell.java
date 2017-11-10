@@ -4,8 +4,6 @@ import bg.uni.sofia.fmi.mjt.dungeon.actor.Hero;
 
 public class Spell extends AbstractPower{
 
-	private String name;
-	private int damage;
 	private int manaCost;
 	
 	public Spell(String name, int damage, int manaCost){
@@ -14,27 +12,13 @@ public class Spell extends AbstractPower{
 		this.manaCost = manaCost;
 	}
 	
-	public Spell(){
-		
-	}
-	
 	@Override
 	public String collect(Hero hero) {
 		hero.learn(this);
-		return "Spell found! Damage points: "
-					+damage
-					+", Mana cost: "
-					+manaCost;
-	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public int getDamage() {
-		return damage;
+		return "Spell found! Damage points: "+
+					damage+
+					", Mana cost: "+
+					manaCost;
 	}
 
 	public int getManaCost(){

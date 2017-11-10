@@ -41,18 +41,12 @@ public class Enemy implements Actor{
 
 	@Override
 	public Weapon getWeapon() {
-		if(weapon != null){
-			return weapon;
-		}
-		return new Weapon();
+		return weapon;
 	}
 
 	@Override
 	public Spell getSpell() {
-		if(spell != null){
-			return spell;
-		}
-		return new Spell();
+		return spell;
 	}
 
 	@Override

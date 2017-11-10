@@ -1,6 +1,7 @@
 package bg.uni.sofia.fmi.mjt.dungeon.actor;
 
 import bg.uni.sofia.fmi.mjt.dungeon.treasure.Spell;
+import bg.uni.sofia.fmi.mjt.dungeon.treasure.Treasure;
 import bg.uni.sofia.fmi.mjt.dungeon.treasure.Weapon;
 
 public interface Character extends Actor{
@@ -10,4 +11,6 @@ public interface Character extends Actor{
 	public void takeMana(int manaPoints);
 	public void equip(Weapon weapon);
 	public void learn(Spell spell);
+	public String fightEnemyMessage(Enemy enemy);
+	public String collectTreasure(Treasure treasure);
 }

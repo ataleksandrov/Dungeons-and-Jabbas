@@ -23,15 +23,11 @@ public class GameEngine {
 		this.treasuresUsed = new boolean[treasures.length];
 	}
 	
-	private char getCharAtPosition(Position position){
-		return map[position.getY()][position.getX()];
-	}
-	
 	public char[][] getMap(){
 		return map;
 	}
 	
-	public void setNewMap(Position current){
+	public void updateCurrentPositionOnMap(Position current){
 		setCharAtPosition(hero.getPosition(),'.');
 		setCharAtPosition(current, 'H');
 		hero.setPosition(current);
@@ -39,7 +35,9 @@ public class GameEngine {
 	
 	public String makeMove(int command){
 		String message="";
-		Position current = new Position(hero.getPosition().getX(),hero.getPosition().getY());
+		Position current = 
+				new Position(hero.getPosition().getX(),
+							 hero.getPosition().getY());
 		switch (command) {
 		case 0:
 			current.moveLeft();
@@ -60,7 +58,7 @@ public class GameEngine {
 		switch (getCharAtPosition(current)) {
 		case '.':
 			message = "You moved successfully to the next position.";
-			setNewMap(current);
+			updateCurrentPositionOnMap(current);
 			break;
 		
 		case'#':
@@ -68,26 +66,14 @@ public class GameEngine {
 			break;
 			
 		case 'T':
-			for(int i = 0;i < treasuresUsed.length;i++){
-				if(!treasuresUsed[i]){
-					message = treasures[i].collect(hero);
-					treasuresUsed[i] = true;
-					break;
-				}
-			}
-			setNewMap(current);
+			message = hero.collectTreasure(findUnusedTreasure());
+			updateCurrentPositionOnMap(current);
 			break;
 			
 		case'E':
-			for(int i=0;i<enemiesUsed.length;i++){
-				if(!enemiesUsed[i]){
-					message = hero.combatMessage(enemies[i]);
-					enemiesUsed[i] = true;	
-					break;
-				}
-			}
+			message = hero.fightEnemyMessage(findUnbeatenEnemy());
 			if(hero.isAlive()){
-				setNewMap(current);
+				updateCurrentPositionOnMap(current);
 			}
 			break;
 			
@@ -98,8 +84,32 @@ public class GameEngine {
 		return message;
 	}
 	
-	public void setCharAtPosition(Position position,char c){
+	private void setCharAtPosition(Position position,char c){
 		map[position.getY()][position.getX()] = c;
+	}
+	
+	private char getCharAtPosition(Position position){
+		return map[position.getY()][position.getX()];
+	}
+	
+	private Treasure findUnusedTreasure(){
+		for(int i = 0;i < treasuresUsed.length;i++){
+			if(!treasuresUsed[i]){
+				treasuresUsed[i] = true;
+				return treasures[i];
+			}
+		}
+		return null;
+	}
+	
+	private Enemy findUnbeatenEnemy(){
+		for(int i=0;i<enemiesUsed.length;i++){
+			if(!enemiesUsed[i]){
+				enemiesUsed[i] = true;	
+				return enemies[i];
+			}
+		}
+		return null;
 	}
 	
 }
