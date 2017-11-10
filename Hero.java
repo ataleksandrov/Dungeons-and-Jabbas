@@ -22,6 +22,8 @@ public class Hero implements Character{
 		this.mana =  mana;
 		this.maxMana = mana;
 		this.position = position;
+		this.weapon = null;
+		this.spell = null;
 	}
 	
 	@Override
@@ -46,18 +48,12 @@ public class Hero implements Character{
 
 	@Override
 	public Weapon getWeapon() {
-		if(weapon != null){
-			return weapon;
-		}
-		return new Weapon();
+		return weapon;
 	}
 
 	@Override
 	public Spell getSpell() {
-		if(spell != null){
-			return spell;
-		}
-		return new Spell();
+		return spell;	
 	}
 
 	@Override
@@ -104,11 +100,9 @@ public class Hero implements Character{
 
 	@Override
 	public void takeMana(int manaPoints) {
-		if(isAlive()){
-			mana+=manaPoints;
-			if(mana > maxMana){
-				mana = maxMana;
-			}
+		mana+=manaPoints;
+		if(mana > maxMana){
+			mana = maxMana;
 		}
 	}
 
