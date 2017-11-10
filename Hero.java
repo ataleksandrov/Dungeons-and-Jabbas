@@ -4,92 +4,23 @@ import bg.uni.sofia.fmi.mjt.dungeon.treasure.Spell;
 import bg.uni.sofia.fmi.mjt.dungeon.treasure.Treasure;
 import bg.uni.sofia.fmi.mjt.dungeon.treasure.Weapon;
 
-public class Hero implements Character{
+public class Hero extends Character{
 
-	private String name;
-	private int health;
 	private final int maxHealth;
-	private int mana;
 	private final int maxMana;
 	private Position position;
-	private Weapon weapon;
-	private Spell spell;
-	
 	
 	public Hero(String name, int health, int mana, Position position){
-		this.name =  name;
-		this.health = health;
+		super(name,health,mana,null,null);
 		this.maxHealth = health;
-		this.mana =  mana;
 		this.maxMana = mana;
 		this.position = position;
-		this.weapon = null;
-		this.spell = null;
-	}
-	
-	@Override
-	public String getName() {
-		return name;
 	}
 
-	@Override
-	public int getHealth() {
-		return health;
-	}
-
-	@Override
-	public int getMana() {
-		return mana;
-	}
-
-	@Override
-	public boolean isAlive() {
-		return health > 0;
-	}
-
-	@Override
-	public Weapon getWeapon() {
-		return weapon;
-	}
-
-	@Override
-	public Spell getSpell() {
-		return spell;	
-	}
-
-	@Override
-	public void takeDamage(int damagePoints) {
-		health-=damagePoints;
-		if(health < 0){
-			health = 0;
-		}
-	}
-
-	@Override
-	public int attack() {
-		if(weapon == null){
-			if(spell != null && spell.getManaCost() <= mana){
-				mana-=spell.getManaCost();
-				return spell.getDamage();
-			}
-			return 0;
-		}
-		if(spell == null || spell.getManaCost() > mana){
-			return weapon.getDamage();
-		}
-		if(weapon.compareTo(spell) > 0){
-			return weapon.getDamage();
-		}
-		mana-=spell.getManaCost();
-		return spell.getDamage();
-	}
-
-	@Override
 	public Position getPosition() {
 		return position;
 	}
 
-	@Override
 	public void takeHealing(int healingPoints) {
 		if(isAlive()){
 			health+=healingPoints;
@@ -99,7 +30,6 @@ public class Hero implements Character{
 		}
 	}
 
-	@Override
 	public void takeMana(int manaPoints) {
 		mana+=manaPoints;
 		if(mana > maxMana){
@@ -107,7 +37,6 @@ public class Hero implements Character{
 		}
 	}
 
-	@Override
 	public void equip(Weapon weapon) {
 		if(weapon == null){
 			return;
@@ -117,7 +46,6 @@ public class Hero implements Character{
 		}
 	}
 
-	@Override
 	public void learn(Spell spell) {
 		if(spell == null){
 			return;
@@ -127,12 +55,10 @@ public class Hero implements Character{
 		}
 	}
 
-	@Override
 	public void setPosition(Position position) {
 		this.position = position;
 	}
 
-	@Override
 	public String fightEnemyMessage(Enemy enemy){
 		String message;
 		int turn =1;
@@ -154,7 +80,6 @@ public class Hero implements Character{
 		return message;
 	}
 
-	@Override
 	public String collectTreasure(Treasure treasure) {
 		return treasure.collect(this);
 	}
