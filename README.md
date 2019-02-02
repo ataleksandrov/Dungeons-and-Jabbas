@@ -1,2 +1,2 @@
 # Dungeons-and-Jabbas
-Java Homework 1
+MJT FMI Course Homework 1
